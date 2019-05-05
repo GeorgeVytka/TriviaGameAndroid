@@ -1,6 +1,7 @@
 package com.example.triviagame;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,8 @@ public class LogInPage extends AppCompatActivity {
     private TextView btnReset;
     public Boolean userLogIn = false;
     private ConstraintLayout layout;
+
+    private MediaPlayer mpButton;
 
 
     @Override
@@ -58,8 +61,16 @@ public class LogInPage extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mpButton.stop();
+        mpButton.release();
+    }
+
     private void assignVariables(){
 
+        mpButton = MediaPlayer.create(this,R.raw.buttonpress);
         mEmail = findViewById(R.id.etUserName);
         mPassword = findViewById(R.id.etPassword);
         progressBar = new ProgressBar(this);
@@ -79,6 +90,7 @@ public class LogInPage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LogInPage.this, HomePage.class);
                 startActivity(intent);
+                mpButton.start();
                 finish();
             }
         });
@@ -92,6 +104,7 @@ public class LogInPage extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(LogInPage.this, SignUpPage.class));
                 finish();
+                mpButton.start();
             }
         });
 
@@ -101,12 +114,13 @@ public class LogInPage extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(LogInPage.this,ResetPasswordActivity.class));
                 finish();
+                mpButton.start();
             }
         });
     }
 
     private void btnLogInClicked(){
-
+        mpButton.start();
         //login activity
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

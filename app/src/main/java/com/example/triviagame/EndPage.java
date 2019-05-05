@@ -155,7 +155,7 @@ mpWin.start();
     private void assignVariables(){
 
         mpButton = MediaPlayer.create(this,R.raw.buttonpress);
-        mpWin = MediaPlayer.create(this,R.raw.Win);
+        mpWin = MediaPlayer.create(this,R.raw.win);
         layout = findViewById(R.id.layout);
         btn_PlayAgain = findViewById(R.id.btnPlayAgain);
         btn_BackToCategory = findViewById(R.id.btnBackToCategory);

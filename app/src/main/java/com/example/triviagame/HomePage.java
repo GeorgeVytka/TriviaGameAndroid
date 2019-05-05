@@ -49,6 +49,23 @@ public class HomePage extends AppCompatActivity {
 
         clickListner();
         changeBackground();
+mpBackground.start();
+mpBackground.isLooping();
+    }
+
+    //stop the Media to free up resources
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mpBackground.stop();
+        mpBackground.release();
+
+        mpHigh.stop();
+        mpHigh.release();
+
+
+        mpPlayGame.stop();
+        mpPlayGame.release();
 
     }
 
@@ -95,6 +112,7 @@ public class HomePage extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), PopUpWindow.class));
                 mpHigh.start();
+
             }
         });
 
@@ -103,6 +121,7 @@ public class HomePage extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),CategoriesPage.class));
                 mpPlayGame.start();
+
                 finish();
             }
         });
@@ -147,6 +166,7 @@ public class HomePage extends AppCompatActivity {
     //function to assign buttons and texts to java variables
     private void assignVariables(){
 
+        mpBackground = MediaPlayer.create(this,R.raw.jazzyfrenchy);
         mpPlayGame = MediaPlayer.create(this,R.raw.buttonpress);
         mpHigh = MediaPlayer.create(this,R.raw.swoosh);
         btn_GameStart = findViewById(R.id.btnGameStart);

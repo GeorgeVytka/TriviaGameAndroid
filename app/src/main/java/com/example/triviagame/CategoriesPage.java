@@ -59,6 +59,23 @@ public class CategoriesPage extends AppCompatActivity {
         //CreateButton();
     }
 
+
+    //stop the Media to free up resources
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        mpSwoosh.stop();
+        mpSwoosh.stop();
+
+
+        mpCat.stop();
+        mpCat.release();
+
+        mpRandom.stop();
+        mpRandom.release();
+    }
+
     private void setCategoryNames(){
         //category in order of 1.Science & Nature, 2.Science: Computers, 3.General Knowledge
         // 4.Geography, 5.Sport, 6.Vehicle, 7.Celebrities, 8.History

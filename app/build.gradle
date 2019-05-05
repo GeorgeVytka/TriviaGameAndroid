@@ -33,6 +33,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:17.1.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
+    implementation 'org.jetbrains:annotations-java5:15.0'
 }
 
 
