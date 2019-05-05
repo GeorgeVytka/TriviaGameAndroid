@@ -50,7 +50,7 @@ public class HomePage extends AppCompatActivity {
         clickListner();
         changeBackground();
 mpBackground.start();
-mpBackground.isLooping();
+
     }
 
     //stop the Media to free up resources
@@ -141,6 +141,7 @@ mpBackground.isLooping();
         tv_ChangeBackground.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mpHigh.start();
                 int backgroundNum = headerClassInstance.getCurBackground(getApplicationContext());
 
                 int temp = headerClassInstance.chnageBackground(backgroundNum, layout);
@@ -167,6 +168,7 @@ mpBackground.isLooping();
     private void assignVariables(){
 
         mpBackground = MediaPlayer.create(this,R.raw.jazzyfrenchy);
+        mpBackground.setLooping(true);
         mpPlayGame = MediaPlayer.create(this,R.raw.buttonpress);
         mpHigh = MediaPlayer.create(this,R.raw.swoosh);
         btn_GameStart = findViewById(R.id.btnGameStart);
