@@ -1,6 +1,7 @@
 package com.example.triviagame;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ public class EndPage extends AppCompatActivity {
     private TextView tv_Score, tv_CoinRecived;
     private static String totalPoints;
     private userClass curUser;
+
+    private MediaPlayer mpButton,mpWin;
 
 
     @Override
@@ -50,7 +53,7 @@ public class EndPage extends AppCompatActivity {
         }
 
 
-
+mpWin.start();
         playAgain();
     }
 
@@ -118,6 +121,7 @@ public class EndPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), QuestionPage.class));
+                mpButton.start();
                 finish();
             }
         });
@@ -130,6 +134,7 @@ public class EndPage extends AppCompatActivity {
             public void onClick(View v) {
 
                 startActivity(new Intent(getApplicationContext(), HomePage.class));
+                mpButton.start();
             }
         });
     }
@@ -141,6 +146,7 @@ public class EndPage extends AppCompatActivity {
             public void onClick(View v) {
 
                 startActivity(new Intent(getApplicationContext(),CategoriesPage.class));
+                mpButton.start();
                 finish();
             }
         });
@@ -148,6 +154,8 @@ public class EndPage extends AppCompatActivity {
 
     private void assignVariables(){
 
+        mpButton = MediaPlayer.create(this,R.raw.buttonpress);
+        mpWin = MediaPlayer.create(this,R.raw.Win);
         layout = findViewById(R.id.layout);
         btn_PlayAgain = findViewById(R.id.btnPlayAgain);
         btn_BackToCategory = findViewById(R.id.btnBackToCategory);

@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
@@ -44,6 +45,8 @@ public class QuestionPage extends AppCompatActivity {
     private int []selectedCategories;
     private int numberOfCategories = 8;
     private CategoriesPage categoriesPage = new CategoriesPage();
+
+    private MediaPlayer mpWrong,mpCorrect,mpSkip,mpSwoosh,mpMusic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -279,10 +282,12 @@ public class QuestionPage extends AppCompatActivity {
             if (rightAnswer.equals(clickedBtn.getText())){
                 clickedBtn.setTextColor(Color.GREEN);
                 addPoint();
+                mpCorrect.start();
             }else{
                 clickedBtn.setTextColor(Color.RED);
                 deductPoint();
                 showRightAnswer();
+                mpWrong.start();
             }
 
         }
@@ -331,6 +336,11 @@ public class QuestionPage extends AppCompatActivity {
     }
 
     public void assignValues(){
+        mpMusic = MediaPlayer.create(this,R.raw.bensoundepic);
+        mpCorrect = MediaPlayer.create(this,R.raw.correct);
+        mpWrong = MediaPlayer.create(this,R.raw.wronganswer);
+        mpSwoosh = MediaPlayer.create(this,R.raw.swoosh);
+        mpSkip = MediaPlayer.create(this, R.raw.buttonpress);
         tv_Question = findViewById(R.id.tvQuestion);
         tv_Timer = findViewById(R.id.tvTimer);
         tv_Category = findViewById(R.id.tvCategory);
@@ -396,7 +406,10 @@ public class QuestionPage extends AppCompatActivity {
         timeLeftText += ""+minutes;
         timeLeftText += ":";
 
-        if(seconds<10)timeLeftText +="0";
+        if(seconds<10){
+            mpMusic.start();
+            timeLeftText +="0";
+        }
         timeLeftText += seconds;
 
         tv_Timer.setText(timeLeftText);

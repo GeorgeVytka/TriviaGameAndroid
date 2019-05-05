@@ -2,6 +2,7 @@ package com.example.triviagame;
 
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +26,9 @@ public class HomePage extends AppCompatActivity {
     private Boolean exitCondition = false;
 
     private FirebaseAuth auth;
+
+    private MediaPlayer mpPlayGame,mpHigh,mpBackground;
+
 
     HeaderClass headerClassInstance = new HeaderClass();
 
@@ -90,6 +94,7 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), PopUpWindow.class));
+                mpHigh.start();
             }
         });
 
@@ -97,6 +102,7 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),CategoriesPage.class));
+                mpPlayGame.start();
                 finish();
             }
         });
@@ -105,6 +111,7 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), LogInPage.class));
+                mpHigh.start();
                 finish();
             }
         });
@@ -140,6 +147,8 @@ public class HomePage extends AppCompatActivity {
     //function to assign buttons and texts to java variables
     private void assignVariables(){
 
+        mpPlayGame = MediaPlayer.create(this,R.raw.buttonpress);
+        mpHigh = MediaPlayer.create(this,R.raw.swoosh);
         btn_GameStart = findViewById(R.id.btnGameStart);
         tv_LogIn = findViewById(R.id.tvLogIn);
         btn_BackHome = findViewById(R.id.btnBackToHome);
