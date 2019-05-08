@@ -17,6 +17,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,9 @@ public class SplashScreen extends AppCompatActivity {
         layout = findViewById(R.id.constraintLayout);
         HeaderClass headerClassInstance = new HeaderClass();
         headerClassInstance.setBackground(layout, getApplicationContext());
+
+      startService(new Intent(this, BackgroundSoundService.class));
+
 
     }
 

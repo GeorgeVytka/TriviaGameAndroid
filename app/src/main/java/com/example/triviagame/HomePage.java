@@ -3,6 +3,7 @@ package com.example.triviagame;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Looper;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,10 +28,14 @@ public class HomePage extends AppCompatActivity {
 
     private FirebaseAuth auth;
 
-    private MediaPlayer mpPlayGame,mpHigh,mpBackground;
+    private MediaPlayer mpPlayGame, mpHigh, mpBackground;
+
+    //BackgroundSoundService bs = new BackgroundSoundService();
 
 
     HeaderClass headerClassInstance = new HeaderClass();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +54,7 @@ public class HomePage extends AppCompatActivity {
 
         clickListner();
         changeBackground();
-mpBackground.start();
+//mpBackground.start();
 
     }
 
@@ -57,16 +62,28 @@ mpBackground.start();
     @Override
     protected void onStop() {
         super.onStop();
-        mpBackground.stop();
-        mpBackground.release();
-
-        mpHigh.stop();
-        mpHigh.release();
+        // mpBackground.stop();
 
 
-        mpPlayGame.stop();
-        mpPlayGame.release();
 
+    //  mpHigh.stop();
+
+
+
+    // mpPlayGame.stop();
+
+
+
+    stopService(new Intent(this, BackgroundSoundService .class));
+
+}
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+        startService(new Intent(this,BackgroundSoundService.class));
     }
 
     public void checkUser(){
@@ -186,6 +203,7 @@ mpBackground.start();
         if (exitCondition){
             finish();
             super.onBackPressed();
+            stopService(new Intent(this, MyService.class));
         }else{
             Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
             exitCondition = true;

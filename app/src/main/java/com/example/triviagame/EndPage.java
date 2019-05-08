@@ -22,7 +22,7 @@ public class EndPage extends AppCompatActivity {
     private static String totalPoints;
     private userClass curUser;
 
-    private MediaPlayer mpButton,mpWin;
+    private MediaPlayer mpButton,mpWin,mpMusic;
 
 
     @Override
@@ -154,6 +154,7 @@ mpWin.start();
 
     private void assignVariables(){
 
+
         mpButton = MediaPlayer.create(this,R.raw.buttonpress);
         mpWin = MediaPlayer.create(this,R.raw.win);
         layout = findViewById(R.id.layout);
@@ -181,5 +182,23 @@ mpWin.start();
 
     @Override
     public void onBackPressed() {
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+    }
+
+    //stop the Media to free up resources
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // mpBackground.stop();
+
+
+        stopService(new Intent(this,BackgroundSoundService.class));
+
     }
 }

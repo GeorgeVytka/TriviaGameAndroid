@@ -336,7 +336,7 @@ public class QuestionPage extends AppCompatActivity {
     }
 
     public void assignValues(){
-        mpMusic = MediaPlayer.create(this,R.raw.bensoundepic);
+        mpMusic = MediaPlayer.create(this,R.raw.goinghigher);
         mpCorrect = MediaPlayer.create(this,R.raw.correct);
         mpWrong = MediaPlayer.create(this,R.raw.wronganswer);
         mpSwoosh = MediaPlayer.create(this,R.raw.swoosh);
@@ -407,7 +407,7 @@ public class QuestionPage extends AppCompatActivity {
         timeLeftText += ":";
 
         if(seconds<10){
-            mpMusic.start();
+
             timeLeftText +="0";
         }
         timeLeftText += seconds;
@@ -444,7 +444,17 @@ public class QuestionPage extends AppCompatActivity {
             EndPage endPage = new EndPage();
             endPage.setTotalPoints(currentPoints);
             startActivity(new Intent(getApplicationContext(),EndPage.class));
+            //startService(new Intent(this,BackgroundSoundService.class));
             finish();
+        }
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!mpMusic.isPlaying()) {
+            mpMusic.start();
         }
 
     }
@@ -454,5 +464,19 @@ public class QuestionPage extends AppCompatActivity {
         super.onPause();
         Log.d("QuestionPage Status: ","BackGround");
         appForegroundStatus = false;
+        mpMusic.pause();
+    }
+
+
+
+    //stop the Media to free up resources
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // mpBackground.stop();
+
+
+        //stopService(new Intent(this,BackgroundSoundService.class));
+
     }
 }

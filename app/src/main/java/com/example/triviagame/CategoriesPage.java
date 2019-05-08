@@ -32,7 +32,11 @@ public class CategoriesPage extends AppCompatActivity {
     private ConstraintLayout layout;
     private LinearLayout linearLayout;
 
-    private MediaPlayer mpRandom,mpCat,mpSwoosh;
+    private MediaPlayer mpRandom,mpCat,mpSwoosh,mpMusic;
+
+
+
+
     //private QuestionPage questionPage = new QuestionPage();
 
     @Override
@@ -56,6 +60,8 @@ public class CategoriesPage extends AppCompatActivity {
         HeaderClass headerClassInstance = new HeaderClass();
         headerClassInstance.setBackground(layout, getApplicationContext());
 
+        mpMusic.start();
+
         //CreateButton();
     }
 
@@ -64,16 +70,34 @@ public class CategoriesPage extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+mpMusic.pause();
+       // mpSwoosh.stop();
+      //  mpSwoosh.stop();
 
-        mpSwoosh.stop();
-        mpSwoosh.stop();
+
+//mpMusic.stop();
+
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Toast.makeText(this, "2Service Started and Playing Music", Toast.LENGTH_LONG).show();
+      mpMusic.start();
+
+        if (!mpMusic.isPlaying()) {
+            mpMusic.start();
+        }
+
+    }
 
 
-        mpCat.stop();
-        mpCat.release();
 
-        mpRandom.stop();
-        mpRandom.release();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(this, "1Service Started and Playing Music", Toast.LENGTH_LONG).show();
+        mpMusic.start();
     }
 
     private void setCategoryNames(){
@@ -322,6 +346,9 @@ public class CategoriesPage extends AppCompatActivity {
 
     //this method will be called to assign buttons and text to variable
     private void assignValues(){
+        mpMusic = MediaPlayer.create(this,R.raw.relaxing);
+        mpMusic.setLooping(true);
+        mpMusic.setVolume(80,80);
         mpSwoosh = MediaPlayer.create(this,R.raw.swoosh);
         mpRandom = MediaPlayer.create(this,R.raw.buttonpress);
         mpCat = MediaPlayer.create(this,R.raw.buttontoggle);
@@ -344,9 +371,17 @@ public class CategoriesPage extends AppCompatActivity {
 
     }
 
+
+
     @Override
     public void onBackPressed() {
         //back button will not do anything
+        stopService(new Intent(this,BackgroundSoundService.class));
     }
+
+
+
+
+
 
 }
